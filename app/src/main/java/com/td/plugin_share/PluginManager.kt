@@ -3,6 +3,7 @@ package com.td.plugin_share
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import java.io.File
 
 /**
  * Createde By chenguting
@@ -12,18 +13,30 @@ import android.os.Bundle
 class PluginManager {
 
     companion object {
-        val pluginKey = "key1"
-        fun getPluginPath(context: Context) :String{
-            return context.getExternalFilesDir(null)!!.absolutePath+"/plugin/app-debug.apk"
+        fun init(context: Context){
+            val s = context.getExternalFilesDir(null)!!.absolutePath + "/plugin"
+            val file=File(s)
+            if (!file.exists()){
+                file.mkdirs()
+            }
         }
+        val pluginKey = "key1"
+        val pluginPkg = "com.test.plugin"
+
+        fun getPluginPath(context: Context): String {
+
+            return context.getExternalFilesDir(null)!!.absolutePath + "/plugin/plugin1-debug.apk"
+        }
+
         fun startActivity(context: Context, intent: Intent) {
+            val pluginClassName = (intent.component?.className ?: "")
+
             //启动插件Activity
-            if ("com.test.plugin" == intent.component?.packageName
-            ) {
+            if (pluginClassName.startsWith(pluginPkg)) {
                 var intent = Intent()
                 intent.setClass(context, PluginBaseActivity::class.java)
                 val extras = intent.extras ?: Bundle()
-                extras.putString(pluginKey, intent.component?.className)
+                extras.putString(pluginKey, pluginClassName)
                 intent.putExtras(extras)
                 context.startActivity(intent)
             } else {
