@@ -1,4 +1,4 @@
-package com.test.pluginlib
+package com.test.lib
 
 import org.junit.Test
 

@@ -18,4 +18,8 @@ class MainActivity : AppCompatActivity() {
         intent.setClassName(this, "com.test.plugin.PluginActivity")
         PluginManager.startActivity(this, intent)
     }
+
+    fun jump3(view: View) {
+        startActivity(Intent(this,MainActivity3::class.java))
+    }
 }

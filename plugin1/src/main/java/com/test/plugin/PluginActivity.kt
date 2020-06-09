@@ -1,7 +1,7 @@
 package com.test.plugin
 
 import com.td.plugin.R
-import com.test.pluginlib.ActivityImpl
+import com.test.lib.ActivityImpl
 
 class PluginActivity : ActivityImpl {
     override fun getLayoutId(): Int {

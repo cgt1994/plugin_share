@@ -20,16 +20,17 @@ class PluginClassLoader(
         Log.e("dexpath",File(dexPath).exists().toString())
     }
     override fun loadClass(name: String): Class<*>? {
-        Log.e("loadClass",name)
         try {
             if (name.startsWith(pluginPkg)) {
+                Log.e("loadClass","pluginPkg ---- $name")
                 return findClass(name)
             }
         } catch (e: ClassNotFoundException) {
+            Log.e("loadClass","null ---- $name"+"\n"+Log.getStackTraceString(e))
             return null
         }
-
-        return super.loadClass(name)
+        Log.e("loadClass","parent.loadClass ---- $name")
+        return parent.loadClass(name)
     }
 
 
